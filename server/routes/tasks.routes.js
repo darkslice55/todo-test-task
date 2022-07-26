@@ -1,5 +1,5 @@
 const taskRouter = require('express').Router();
-const emailValidator = require('email-validator');
+const taskValidator = require('../controller/taskValidator');
 const { Task } = require('../db/models');
 
 taskRouter
@@ -15,22 +15,26 @@ taskRouter
     }
   })
   .post(async (req, res, next) => {
-    const { description, user_email, user_name } = req.body;
-    if (description.trim() === '') {
-      return res.status(422).json({ error: 'Описание задачи не может быть пустым' });
-    }
-    if (user_name.trim() === '') {
-      return res.status(422).json({ error: 'Имя пользователя не может быть пустым' });
-    }
-    if (emailValidator.validate(user_email)) {
-      return res.status(422).json({ error: 'Неправильный формат email' });
+    // const { description, user_email, user_name } = req.body;
+    // if (description.trim() === '') {
+    //   return res.status(422).json({ error: 'Описание задачи не может быть пустым' });
+    // }
+    // if (user_name.trim() === '') {
+    //   return res.status(422).json({ error: 'Имя пользователя не может быть пустым' });
+    // }
+    // if (emailValidator.validate(user_email)) {
+    //   return res.status(422).json({ error: 'Неправильный формат email' });
+    // }
+    const isValidated = taskValidator(req.body);
+    console.log('req.body', req.body);
+    console.log('isValidated', isValidated);
+    if (!isValidated.validated) {
+      return res.status(422).json({ errors: isValidated.errors });
     }
 
     try {
       const task = await Task.create({
-        description,
-        user_name,
-        user_email,
+        ...req.body,
         done: false,
       });
 

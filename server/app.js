@@ -11,8 +11,8 @@ const PORT = process.env.PORT ?? 4000;
 
 expressConfig(app);
 
-// app.use('/tasks', taskRouter);
-app.use('/auth', authRouter);
+app.use('/api/tasks', taskRouter);
+app.use('/api/auth', authRouter);
 
 app.use((error, req, res) => {
   console.error('Произошла ошибка', error);
