@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import NavBar from '../NavBar/NavBar';
 import AddTaskForm from '../AddTaskForm/AddTaskForm';
 import TasksList from '../TasksList/TasksList';
-import CustomizedSnackbars from '../Alert/Alert';
+import AddTaskFormSnackbar from '../AddTaskFormSnackbar/AddTaskFormSnackbar';
 
 export default function Main() {
   return (
@@ -14,7 +14,7 @@ export default function Main() {
         <AddTaskForm />
         <TasksList />
       </Container>
-      <CustomizedSnackbars />
+      <AddTaskFormSnackbar />
     </div>
   );
 }

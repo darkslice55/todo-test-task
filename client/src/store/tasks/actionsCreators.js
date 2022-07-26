@@ -31,8 +31,8 @@ export function addTaskSuccess(task) {
   return { type: TASKS_ADD_SUCCESS, payload: task };
 }
 
-export function addTaskFailure(message) {
-  return { type: TASKS_ADD_FAILURE, payload: message };
+export function addTaskFailure(errors) {
+  return { type: TASKS_ADD_FAILURE, payload: errors };
 }
 
 export function resetTaskValidation() {

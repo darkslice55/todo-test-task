@@ -8,8 +8,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Button } from '@mui/material';
+import { toggleLoginForm } from '../../store/auth/actionsCreators';
+import { useDispatch } from 'react-redux';
+import LoginPopover from '../LoginPopover/LoginPopover';
 
 export default function MenuAppBar() {
+  const dispatch = useDispatch();
+
+  const handleClick = (target) => {
+    dispatch(toggleLoginForm(target));
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -22,12 +31,15 @@ export default function MenuAppBar() {
               <Button color="inherit">ВЫЙТИ</Button>
             ) : (
               <div>
-                <Button color="inherit">ВОЙТИ</Button>
+                <Button onClick={(event) => handleClick(event.currentTarget)} color="inherit">
+                  ВОЙТИ
+                </Button>
               </div>
             )}
           </Toolbar>
         </Container>
       </AppBar>
+      <LoginPopover />
     </Box>
   );
 }

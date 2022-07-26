@@ -79,7 +79,7 @@ export default function AddTodo() {
           />
         </Grid>
         <Grid className={styles.addButtonWrapper} item xs={12} sm={3}>
-          <Button type="submit" fullWidth color="secondary" variant="outlined">
+          <Button type="submit" fullWidth variant="outlined">
             Добавить
           </Button>
         </Grid>
