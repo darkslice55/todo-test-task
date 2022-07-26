@@ -4,6 +4,7 @@ import {
   TASKS_LOADED,
   TASKS_RESET_VALIDATION,
   TASKS_UPDATED,
+  TASKS_CLOSE_VALIDATION_RESULT,
 } from './actionsTypes';
 
 export function createTask(task) {
@@ -36,4 +37,8 @@ export function addTaskFailure(message) {
 
 export function resetTaskValidation() {
   return { type: TASKS_RESET_VALIDATION };
+}
+
+export function closeTaskValidationResult() {
+  return { type: TASKS_CLOSE_VALIDATION_RESULT };
 }
