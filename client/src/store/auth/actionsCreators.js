@@ -4,10 +4,12 @@ import {
   AUTH_LOGOUT_SUCCESS,
   AUTH_LOGOUT_FAILURE,
   AUTH_TOGGLE_LOGIN_FORM,
+  AUTH_RESET_VALIDATION,
 } from './actionsTypes';
 
-export function loginAdmin({ admin }) {
+export function loginAdmin(admin) {
   return async (dispatch) => {
+    console.log(admin);
     const data = await fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify(admin),
@@ -50,6 +52,10 @@ export function logoutAdminSuccess() {
 
 export function logoutAdminFailure() {
   return { type: AUTH_LOGOUT_FAILURE };
+}
+
+export function resetLoginValidation() {
+  return { type: AUTH_RESET_VALIDATION };
 }
 
 export function toggleLoginForm(target) {

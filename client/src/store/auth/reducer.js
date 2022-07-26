@@ -4,6 +4,7 @@ import {
   AUTH_LOGOUT_SUCCESS,
   AUTH_LOGOUT_FAILURE,
   AUTH_TOGGLE_LOGIN_FORM,
+  AUTH_RESET_VALIDATION,
 } from './actionsTypes';
 
 const initialState = {
@@ -32,7 +33,15 @@ export default function authReducer(state = initialState, action) {
     }
 
     case AUTH_TOGGLE_LOGIN_FORM: {
-      return { ...state, isShowedForm: !state.isShowedForm, targetShowedForm: action.payload };
+      return {
+        ...state,
+        isShowedForm: !state.isShowedForm,
+        targetShowedForm: action.payload,
+        error: false,
+      };
+    }
+    case AUTH_RESET_VALIDATION: {
+      return { ...state, error: false };
     }
 
     default:

@@ -3,6 +3,7 @@ const { Admin } = require('../db/models');
 
 authRouter.route('/login').post(async (req, res, next) => {
   try {
+    console.log(req.body);
     const { login, password } = req.body;
     const checkedUser = await Admin.findOne({
       where: { login },

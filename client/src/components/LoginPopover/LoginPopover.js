@@ -3,11 +3,14 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLoginForm } from '../../store/auth/actionsCreators';
+import LoginForm from '../LoginForm/LoginForm';
+import { Alert } from '@mui/material';
 
 export default function LoginPopover() {
   const dispatch = useDispatch();
   const showAuthFormFlag = useSelector((state) => state.auth.isShowedForm);
   const targetShowedForm = useSelector((state) => state.auth.targetShowedForm);
+  const error = useSelector((state) => state.auth.error);
 
   const handleClose = () => {
     dispatch(toggleLoginForm());
@@ -25,7 +28,8 @@ export default function LoginPopover() {
         vertical: 'bottom',
         horizontal: 'left',
       }}>
-      <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+      {error && <Alert severity="error">Логин или пароль неверны</Alert>}
+      <LoginForm />
     </Popover>
   );
 }
