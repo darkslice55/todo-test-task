@@ -4,20 +4,17 @@ const { Task } = require('../db/models');
 
 taskRouter
   .route('/')
-  .get(async (req, res) => {
+  .get(async (req, res, next) => {
     try {
       const tasks = await Task.findAll({
         order: [['createdAt', 'DESC']],
       });
-      res.status(200);
-      res.json(tasks);
+      res.status(200).json(tasks);
     } catch (error) {
-      console.log(error);
-      res.status(500);
-      res.end();
+      next(error);
     }
   })
-  .post(async (req, res) => {
+  .post(async (req, res, next) => {
     const { description, user_email, user_name } = req.body;
     if (description.trim() === '') {
       return res.status(422).json({ error: 'Описание задачи не может быть пустым' });
@@ -29,12 +26,36 @@ taskRouter
       return res.status(422).json({ error: 'Неправильный формат email' });
     }
 
-    const task = await Task.create({
-      description,
-      user_name,
-      user_email,
-      done: false,
-    });
+    try {
+      const task = await Task.create({
+        description,
+        user_name,
+        user_email,
+        done: false,
+      });
 
-    res.status(201).json(task);
+      res.status(201).json(task);
+    } catch (error) {
+      next(error);
+    }
   });
+
+taskRouter.put('/:id', async (req, res, next) => {
+  try {
+    const task = await Task.findByPk(Number(req.params.id));
+
+    if (!task) {
+      return res.status(404).json({ message: 'Нет такой задачи' });
+    }
+
+    if ('descpription' in req.body) task.descpription = req.body.descpription;
+    if ('done' in req.body) task.done = req.body.done;
+    await task.save();
+
+    res.status(200).end();
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = taskRouter;

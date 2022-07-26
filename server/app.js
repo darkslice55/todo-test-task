@@ -14,6 +14,14 @@ expressConfig(app);
 // app.use('/tasks', taskRouter);
 app.use('/auth', authRouter);
 
+app.use((error, req, res) => {
+  console.error('Произошла ошибка', error);
+  res.status(500).json({
+    success: false,
+    message: 'Непредвиденная ошибка сервера, попробуйте зайти позже',
+  });
+});
+
 app.listen(PORT, async () => {
   /* eslint-disable no-console */
   console.log('Веб-сервер слушает порт', PORT);
