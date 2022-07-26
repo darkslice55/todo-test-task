@@ -12,7 +12,7 @@ const PORT = process.env.PORT ?? 4000;
 expressConfig(app);
 
 // app.use('/tasks', taskRouter);
-// app.use('/auth', authRouter);
+app.use('/auth', authRouter);
 
 app.listen(PORT, async () => {
   /* eslint-disable no-console */
