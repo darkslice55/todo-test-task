@@ -7,9 +7,15 @@ import {
   AUTH_RESET_VALIDATION,
 } from './actionsTypes';
 
+export function getAdmin() {
+  return async (dispatch) => {
+    await fetch('/api/auth/');
+    dispatch(loginAdminSuccess());
+  };
+}
+
 export function loginAdmin(admin) {
   return async (dispatch) => {
-    console.log(admin);
     const data = await fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify(admin),

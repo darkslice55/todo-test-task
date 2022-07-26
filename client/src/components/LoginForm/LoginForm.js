@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginAdmin, resetLoginValidation } from '../../store/auth/actionsCreators';
@@ -6,15 +6,17 @@ import { loginAdmin, resetLoginValidation } from '../../store/auth/actionsCreato
 export default function LoginForm() {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.auth.error);
-  const handleSubmit = React.useCallback((event) => {
-    event.preventDefault();
-    const {
-      login: { value: login },
-      password: { value: password },
-    } = event.target;
-    console.log(login, password);
-    dispatch(loginAdmin({ login, password }));
-  }, []);
+  const handleSubmit = React.useCallback(
+    (event) => {
+      event.preventDefault();
+      const {
+        login: { value: login },
+        password: { value: password },
+      } = event.target;
+      dispatch(loginAdmin({ login, password }));
+    },
+    [dispatch],
+  );
 
   const resetValidation = React.useCallback(() => {
     if (error) dispatch(resetLoginValidation());

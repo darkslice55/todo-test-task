@@ -1,6 +1,23 @@
 const authRouter = require('express').Router();
 const { Admin } = require('../db/models');
 
+authRouter.route('/').get(async (req, res, next) => {
+  try {
+    if (!req.session.userId) {
+      return res.status(404).end();
+    }
+    const checkedUser = await Admin.findOne({
+      where: { id: req.session.userId },
+    });
+    if (!checkedUser) {
+      return res.status(404).end();
+    }
+    res.status(200).end();
+  } catch (error) {
+    next(error);
+  }
+});
+
 authRouter.route('/login').post(async (req, res, next) => {
   try {
     console.log(req.body);
