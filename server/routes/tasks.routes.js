@@ -30,6 +30,7 @@ taskRouter
       const task = await Task.create({
         ...req.body,
         done: false,
+        edited: false,
       });
 
       res.status(201).json(task);
@@ -47,6 +48,7 @@ taskRouter.put('/:id', async (req, res, next) => {
     }
     if ('description' in req.body) task.description = req.body.description;
     if ('done' in req.body) task.done = req.body.done;
+    if ('edited' in req.body) task.edited = req.body.edited;
     await task.save();
 
     res.status(200).end();

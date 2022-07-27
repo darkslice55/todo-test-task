@@ -38,6 +38,7 @@ export default function LoginForm() {
         label="Логин"
         name="login"
         autoFocus
+        required
         onChange={resetValidation}
       />
       <TextField
@@ -47,6 +48,7 @@ export default function LoginForm() {
         name="password"
         label="Пароль"
         type="password"
+        required
         onChange={resetValidation}
       />
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

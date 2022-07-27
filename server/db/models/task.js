@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.BOOLEAN,
       },
+      edited: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+      },
     },
     {
       sequelize,

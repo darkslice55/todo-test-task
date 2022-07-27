@@ -6,3 +6,16 @@
 .iconButton {
   margin-right: 0px;
 }
+
+.taskDescr {
+  font-size: 1.2em;
+}
+
+.taskDone {
+  text-decoration: line-through;
+}
+
+.userInfo {
+  display: inline;
+  font-size: 0.8em;
+}

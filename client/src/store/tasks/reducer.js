@@ -18,7 +18,7 @@ const initialState = {
   clearFormFlag: false,
   showAddResultFlag: false,
   showedEditTaskId: null,
-  query: { page: 1, order: 'createdAt', direction: 'DESC' },
+  query: { page: 1, order: 'id', direction: 'DESC' },
   errors: [],
 };
 

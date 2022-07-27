@@ -23,6 +23,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN,
       },
+      edited: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -32,7 +32,7 @@ export default function TaskListItem({ task }) {
 
   const handleClick = () => {
     if (editFlag) {
-      dispatch(updateTask({ id: task.id, description: value }));
+      dispatch(updateTask({ id: task.id, description: value, edited: true }));
       dispatch(taskCloseEdit(task.id));
     } else {
       dispatch(taskShowEdit(task.id));
@@ -109,13 +109,28 @@ export default function TaskListItem({ task }) {
           />
         ) : (
           <ListItemText
-            primary={task.description}
+            primary={
+              <Typography
+                className={`${styles.taskDescr} ${task.done ? styles.taskDone : null}`}
+                component="span"
+                variant="body2">
+                {task.description}
+              </Typography>
+            }
             secondary={
               <React.Fragment>
-                <Typography sx={{ display: 'inline' }} component="span" variant="body2">
-                  {`Автор: ${task.user_name} - `}
+                <Typography className={styles.userInfo} component="span" variant="body2">
+                  {`Автор: ${task.user_name} - ${task.user_email}`}
                 </Typography>
-                {task.user_email}
+
+                {task.edited && (
+                  <Typography
+                    sx={{ display: 'block', fontSize: '0.7em' }}
+                    component="span"
+                    variant="body2">
+                    {'отредактировано администратором'}
+                  </Typography>
+                )}
               </React.Fragment>
             }
           />
