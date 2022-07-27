@@ -5,12 +5,17 @@ import {
   TASKS_RESET_VALIDATION,
   TASKS_UPDATED,
   TASKS_CLOSE_VALIDATION_RESULT,
+  TASKS_CHANGE_PAGE,
 } from './actionsTypes';
 
 const initialState = {
   tasks: [],
+  tasksPages: 1,
+  tasksCount: 0,
+  limit: 3,
   clearFormFlag: false,
   showAddResultFlag: false,
+  query: { page: 1, order: 'createdAt', direction: 'DESC' },
   errors: [],
 };
 
@@ -22,7 +27,9 @@ export default function tasksReducer(state = initialState, action) {
         ...state,
         clearFormFlag: true,
         showAddResultFlag: true,
-        tasks: [task, ...state.tasks],
+        tasks: [task, ...state.tasks.slice(0, 2)],
+        tasksCount: state.tasksCount + 1,
+        tasksPages: Math.ceil((state.tasksCount + 1) / state.limit),
       };
     }
 
@@ -41,7 +48,12 @@ export default function tasksReducer(state = initialState, action) {
     }
 
     case TASKS_LOADED: {
-      return { ...state, tasks: action.payload };
+      return {
+        ...state,
+        tasks: action.payload.tasks,
+        tasksCount: Number(action.payload.tasksCount),
+        tasksPages: Math.ceil(Number(action.payload.tasksCount) / state.limit),
+      };
     }
 
     case TASKS_UPDATED: {
@@ -49,6 +61,13 @@ export default function tasksReducer(state = initialState, action) {
       return {
         ...state,
         tasks: state.tasks.map((task) => (task.id === newTask.id ? newTask : task)),
+      };
+    }
+
+    case TASKS_CHANGE_PAGE: {
+      return {
+        ...state,
+        query: { ...state.query, page: action.payload },
       };
     }
 

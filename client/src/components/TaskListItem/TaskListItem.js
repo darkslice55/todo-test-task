@@ -5,7 +5,9 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
 
 export default function TaskListItem({ task }) {
@@ -17,7 +19,7 @@ export default function TaskListItem({ task }) {
     <ListItem
       secondaryAction={
         <IconButton edge="end" aria-label="comments">
-          {'P'}
+          <EditIcon />
         </IconButton>
       }
       disablePadding>
@@ -30,7 +32,17 @@ export default function TaskListItem({ task }) {
             disableRipple
           />
         </ListItemIcon>
-        <ListItemText primary={task.description} />
+        <ListItemText
+          primary={task.description}
+          secondary={
+            <React.Fragment>
+              <Typography sx={{ display: 'inline' }} component="span" variant="body2">
+                {`Автор: ${task.user_name} - `}
+              </Typography>
+              {task.user_email}
+            </React.Fragment>
+          }
+        />
       </ListItemButton>
     </ListItem>
   );

@@ -5,11 +5,17 @@ const { Task } = require('../db/models');
 taskRouter
   .route('/')
   .get(async (req, res, next) => {
+    const { page, order, direction } = req.query;
+    const LIMIT = 3;
+    const offset = (page - 1) * LIMIT;
     try {
+      const tasksAll = await Task.findAll();
       const tasks = await Task.findAll({
-        order: [['createdAt', 'DESC']],
+        order: [[order, direction]],
+        offset,
+        limit: LIMIT,
       });
-      res.status(200).json(tasks);
+      res.status(200).json({ tasksCount: tasksAll.length, tasks });
     } catch (error) {
       next(error);
     }
