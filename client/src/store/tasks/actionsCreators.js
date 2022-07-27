@@ -54,7 +54,6 @@ export function loadTasks(query) {
     const { page, order, direction } = query;
     const data = await fetch(`/api/tasks?page=${page}&order=${order}&direction=${direction}`);
     const tasks = await data.json();
-    console.log(tasks);
     dispatch(tasksLoaded(tasks));
   };
 }

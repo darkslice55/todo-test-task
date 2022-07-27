@@ -20,7 +20,6 @@ authRouter.route('/').get(async (req, res, next) => {
 
 authRouter.route('/login').post(async (req, res, next) => {
   try {
-    console.log(req.body);
     const { login, password } = req.body;
     const checkedUser = await Admin.findOne({
       where: { login },

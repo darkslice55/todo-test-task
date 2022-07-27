@@ -28,8 +28,6 @@ export default function MenuAppBar() {
     dispatch(logoutAdmin());
   };
 
-  console.log('isLoggedIn', isLoggedIn);
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

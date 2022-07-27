@@ -41,6 +41,8 @@ export default function tasksReducer(state = initialState, action) {
       const task = action.payload;
       return {
         ...state,
+        sortTypeId: 1,
+        query: { page: 1, ...sortTypes[1] },
         clearFormFlag: true,
         showAddResultFlag: true,
         tasks: [task, ...state.tasks.slice(0, 2)],
@@ -59,7 +61,6 @@ export default function tasksReducer(state = initialState, action) {
     }
 
     case TASKS_CLOSE_VALIDATION_RESULT: {
-      console.log('asdasdasd');
       return { ...state, showAddResultFlag: false };
     }
 

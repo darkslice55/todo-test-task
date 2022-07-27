@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadTasks, tasksChangePage, tasksChangeSortType } from '../../store/tasks/actionsCreators';
 import { FormControl, InputLabel, List, MenuItem, Pagination, Select } from '@mui/material';
 import TaskListItem from '../TaskListItem/TaskListItem';
+import styles from './TasksList.module.css';
 
 export default function TasksList() {
   const dispatch = useDispatch();
@@ -30,12 +31,12 @@ export default function TasksList() {
       {!tasks.length ? (
         <p>Задач пока нет</p>
       ) : (
-        <Paper style={{ margin: 16, paddingBottom: 15 }}>
-          <FormControl style={{ marginTop: 16, marginLeft: 16, fontSize: '0.3em' }} size="small">
-            <InputLabel id="demo-simple-select-label">Сортировка</InputLabel>
+        <Paper className={styles.paperBlock}>
+          <FormControl className={styles.sortForm} size="small">
+            <InputLabel id="sort-type-select-label">Сортировка</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="sort-type-select-label"
+              id="sort-type-select"
               value={sortTypeId}
               onChange={handleChangeSortType}
               label="Сортировка">
@@ -53,7 +54,7 @@ export default function TasksList() {
               <TaskListItem key={task.id} task={task} />
             ))}
           </List>
-          <Pagination count={tasksPages} onChange={handleChangePage} />
+          <Pagination count={tasksPages} page={query.page} onChange={handleChangePage} />
         </Paper>
       )}
     </>

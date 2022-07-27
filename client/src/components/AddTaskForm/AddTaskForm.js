@@ -38,7 +38,7 @@ export default function AddTodo() {
   }, [dispatch, errors]);
 
   return (
-    <Paper style={{ margin: 16, padding: 16 }}>
+    <Paper className={styles.paperBlock}>
       <Grid
         ref={addTaskForm}
         component="form"
