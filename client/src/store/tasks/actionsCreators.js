@@ -42,3 +42,15 @@ export function resetTaskValidation() {
 export function closeTaskValidationResult() {
   return { type: TASKS_CLOSE_VALIDATION_RESULT };
 }
+
+export function loadTasks() {
+  return async (dispatch) => {
+    const data = await fetch('/api/tasks');
+    const tasks = await data.json();
+    dispatch(tasksLoaded(tasks));
+  };
+}
+
+export function tasksLoaded(tasks) {
+  return { type: TASKS_LOADED, payload: tasks };
+}

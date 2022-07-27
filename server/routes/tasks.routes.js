@@ -15,19 +15,7 @@ taskRouter
     }
   })
   .post(async (req, res, next) => {
-    // const { description, user_email, user_name } = req.body;
-    // if (description.trim() === '') {
-    //   return res.status(422).json({ error: 'Описание задачи не может быть пустым' });
-    // }
-    // if (user_name.trim() === '') {
-    //   return res.status(422).json({ error: 'Имя пользователя не может быть пустым' });
-    // }
-    // if (emailValidator.validate(user_email)) {
-    //   return res.status(422).json({ error: 'Неправильный формат email' });
-    // }
     const isValidated = taskValidator(req.body);
-    console.log('req.body', req.body);
-    console.log('isValidated', isValidated);
     if (!isValidated.validated) {
       return res.status(422).json({ errors: isValidated.errors });
     }
