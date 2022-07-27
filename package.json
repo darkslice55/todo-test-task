@@ -1,0 +1,22 @@
+{
+  "name": "todo-test-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd server && npm i && npx sequelize db:migrate && cd ../client && npm i && npm run build",
+    "start": "cd server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darkslice55/todo-test-task.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darkslice55/todo-test-task/issues"
+  },
+  "homepage": "https://github.com/darkslice55/todo-test-task#readme"
+}
