@@ -6,6 +6,8 @@ import {
   TASKS_UPDATED,
   TASKS_CLOSE_VALIDATION_RESULT,
   TASKS_CHANGE_PAGE,
+  TASKS_SHOW_EDIT,
+  TASKS_CLOSE_EDIT,
 } from './actionsTypes';
 
 export function createTask(task) {
@@ -63,6 +65,9 @@ export function tasksChangePage(page) {
 }
 
 export function updateTask(newTask) {
+  if (newTask.description && newTask.description.trim() === '') {
+    delete newTask.description;
+  }
   return async (dispatch) => {
     await fetch(`/api/tasks/${newTask.id}`, {
       method: 'PUT',
@@ -78,4 +83,12 @@ export function updateTask(newTask) {
 
 export function taskUpdated(newTask) {
   return { type: TASKS_UPDATED, payload: newTask };
+}
+
+export function taskShowEdit(id) {
+  return { type: TASKS_SHOW_EDIT, payload: id };
+}
+
+export function taskCloseEdit() {
+  return { type: TASKS_CLOSE_EDIT };
 }

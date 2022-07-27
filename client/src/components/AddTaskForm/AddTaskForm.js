@@ -77,6 +77,7 @@ export default function AddTodo() {
             variant="standard"
             fullWidth
             autoFocus
+            multiline
           />
         </Grid>
         <Grid className={styles.addButtonWrapper} item xs={12} sm={3}>

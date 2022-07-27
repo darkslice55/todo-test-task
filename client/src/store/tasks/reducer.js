@@ -6,6 +6,8 @@ import {
   TASKS_UPDATED,
   TASKS_CLOSE_VALIDATION_RESULT,
   TASKS_CHANGE_PAGE,
+  TASKS_SHOW_EDIT,
+  TASKS_CLOSE_EDIT,
 } from './actionsTypes';
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
   limit: 3,
   clearFormFlag: false,
   showAddResultFlag: false,
+  showedEditTaskId: null,
   query: { page: 1, order: 'createdAt', direction: 'DESC' },
   errors: [],
 };
@@ -68,6 +71,20 @@ export default function tasksReducer(state = initialState, action) {
       return {
         ...state,
         query: { ...state.query, page: action.payload },
+      };
+    }
+
+    case TASKS_SHOW_EDIT: {
+      return {
+        ...state,
+        showedEditTaskId: action.payload,
+      };
+    }
+
+    case TASKS_CLOSE_EDIT: {
+      return {
+        ...state,
+        showedEditTaskId: null,
       };
     }
 
