@@ -45,10 +45,7 @@ taskRouter.put('/:id', async (req, res, next) => {
     if (!task) {
       return res.status(404).json({ message: 'Нет такой задачи' });
     }
-
-    console.log(req.body);
-
-    if ('descpription' in req.body) task.descpription = req.body.descpription;
+    if ('description' in req.body) task.description = req.body.description;
     if ('done' in req.body) task.done = req.body.done;
     await task.save();
 
