@@ -3,16 +3,14 @@ const express = require('express');
 const { sequelize } = require('./db/models');
 const expressConfig = require('./config/express');
 
-const taskRouter = require('./routes/tasks.routes');
-const authRouter = require('./routes/auth.routes');
+const router = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT ?? 4000;
 
 expressConfig(app);
 
-app.use('/api/tasks', taskRouter);
-app.use('/api/auth', authRouter);
+app.use('/', router);
 
 app.use((error, req, res) => {
   console.error('Произошла ошибка', error);
