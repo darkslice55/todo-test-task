@@ -9,7 +9,18 @@ import {
   TASKS_CHANGE_PAGE,
   TASKS_SHOW_EDIT,
   TASKS_CLOSE_EDIT,
+  TASKS_CHANGE_SORT_TYPE,
 } from './actionsTypes';
+
+const sortTypes = {
+  1: { order: 'id', direction: 'DESC' },
+  2: { order: 'user_name', direction: 'ASC' },
+  3: { order: 'user_name', direction: 'DESC' },
+  4: { order: 'user_email', direction: 'ASC' },
+  5: { order: 'user_email', direction: 'DESC' },
+  6: { order: 'done', direction: 'ASC' },
+  7: { order: 'done', direction: 'DESC' },
+};
 
 const initialState = {
   tasks: [],
@@ -19,7 +30,8 @@ const initialState = {
   clearFormFlag: false,
   showAddResultFlag: false,
   showedEditTaskId: null,
-  query: { page: 1, order: 'id', direction: 'DESC' },
+  sortTypeId: 1,
+  query: { page: 1, ...sortTypes[1] },
   errors: [],
 };
 
@@ -76,6 +88,14 @@ export default function tasksReducer(state = initialState, action) {
       return {
         ...state,
         query: { ...state.query, page: action.payload },
+      };
+    }
+
+    case TASKS_CHANGE_SORT_TYPE: {
+      return {
+        ...state,
+        sortTypeId: action.payload,
+        query: { ...state.query, ...sortTypes[action.payload] },
       };
     }
 

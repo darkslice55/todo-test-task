@@ -8,10 +8,11 @@
 }
 
 .taskDescr {
-  font-size: 1.2em;
+  font-size: 1.3em;
 }
 
 .taskDone {
+  font-size: 1.3em;
   text-decoration: line-through;
 }
 

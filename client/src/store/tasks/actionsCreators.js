@@ -10,6 +10,7 @@ import {
   TASKS_CHANGE_PAGE,
   TASKS_SHOW_EDIT,
   TASKS_CLOSE_EDIT,
+  TASKS_CHANGE_SORT_TYPE,
 } from './actionsTypes';
 
 export function createTask(task) {
@@ -64,6 +65,10 @@ export function tasksLoaded(tasks) {
 
 export function tasksChangePage(page) {
   return { type: TASKS_CHANGE_PAGE, payload: page };
+}
+
+export function tasksChangeSortType(sortTypeId) {
+  return { type: TASKS_CHANGE_SORT_TYPE, payload: sortTypeId };
 }
 
 export function updateTask(newTask) {

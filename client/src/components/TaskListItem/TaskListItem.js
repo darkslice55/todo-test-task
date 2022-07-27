@@ -111,7 +111,7 @@ export default function TaskListItem({ task }) {
           <ListItemText
             primary={
               <Typography
-                className={`${styles.taskDescr} ${task.done ? styles.taskDone : null}`}
+                className={`${task.done ? styles.taskDone : styles.taskDescr}`}
                 component="span"
                 variant="body2">
                 {task.description}
