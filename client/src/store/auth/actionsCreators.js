@@ -9,8 +9,10 @@ import {
 
 export function getAdmin() {
   return async (dispatch) => {
-    await fetch('/api/auth/');
-    dispatch(loginAdminSuccess());
+    const data = await fetch('/api/auth/');
+    if (data.status === 200) {
+      dispatch(loginAdminSuccess());
+    }
   };
 }
 

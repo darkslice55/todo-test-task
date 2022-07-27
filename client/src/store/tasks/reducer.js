@@ -60,7 +60,7 @@ export default function tasksReducer(state = initialState, action) {
       const newTask = action.payload;
       return {
         ...state,
-        tasks: state.tasks.map((task) => (task.id === newTask.id ? newTask : task)),
+        tasks: state.tasks.map((task) => (task.id === newTask.id ? { ...task, ...newTask } : task)),
       };
     }
 

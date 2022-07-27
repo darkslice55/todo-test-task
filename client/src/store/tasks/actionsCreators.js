@@ -61,3 +61,21 @@ export function tasksLoaded(tasks) {
 export function tasksChangePage(page) {
   return { type: TASKS_CHANGE_PAGE, payload: page };
 }
+
+export function updateTask(newTask) {
+  return async (dispatch) => {
+    await fetch(`/api/tasks/${newTask.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(newTask),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    dispatch(taskUpdated(newTask));
+  };
+}
+
+export function taskUpdated(newTask) {
+  return { type: TASKS_UPDATED, payload: newTask };
+}

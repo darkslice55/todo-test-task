@@ -9,10 +9,13 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { updateTask } from '../../store/tasks/actionsCreators';
 
 export default function TaskListItem({ task }) {
-  const handleToggle = (id) => {
-    console.log(id);
+  const dispatch = useDispatch();
+  const handleToggle = () => {
+    dispatch(updateTask({ id: task.id, done: !task.done }));
   };
 
   return (
@@ -23,14 +26,9 @@ export default function TaskListItem({ task }) {
         </IconButton>
       }
       disablePadding>
-      <ListItemButton role={undefined} onClick={() => handleToggle(task.id)} dense>
+      <ListItemButton role={undefined} onClick={handleToggle} dense>
         <ListItemIcon>
-          <Checkbox
-            edge="start"
-            // checked={checked.indexOf(value) !== -1}
-            tabIndex={-1}
-            disableRipple
-          />
+          <Checkbox edge="start" checked={task.done} tabIndex={-1} disableRipple />
         </ListItemIcon>
         <ListItemText
           primary={task.description}
