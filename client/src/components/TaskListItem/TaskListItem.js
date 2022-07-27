@@ -21,10 +21,11 @@ export default function TaskListItem({ task }) {
   const dispatch = useDispatch();
 
   const showedEditTaskId = useSelector((store) => store.tasks.showedEditTaskId);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const editFlag = task.id === showedEditTaskId;
 
   const handleToggle = () => {
-    if (!editFlag) {
+    if (!editFlag && isLoggedIn) {
       dispatch(updateTask({ id: task.id, done: !task.done }));
     }
   };
@@ -61,31 +62,33 @@ export default function TaskListItem({ task }) {
   return (
     <ListItem
       secondaryAction={
-        <>
-          <IconButton
-            className={styles.iconButton}
-            edge="end"
-            aria-label="edit task"
-            onClick={handleClick}>
-            {editFlag ? <CheckCircleOutlineIcon /> : <EditIcon />}
-          </IconButton>
-          {editFlag && (
+        isLoggedIn && (
+          <>
             <IconButton
               className={styles.iconButton}
               edge="end"
               aria-label="edit task"
-              onClick={handleClickClose}>
-              <CloseIcon />
+              onClick={handleClick}>
+              {editFlag ? <CheckCircleOutlineIcon /> : <EditIcon />}
             </IconButton>
-          )}
-        </>
+            {editFlag && (
+              <IconButton
+                className={styles.iconButton}
+                edge="end"
+                aria-label="edit task"
+                onClick={handleClickClose}>
+                <CloseIcon />
+              </IconButton>
+            )}
+          </>
+        )
       }
       disablePadding>
       <ListItemButton role={undefined} onClick={handleToggle} dense>
         <ListItemIcon>
           <Checkbox
             edge="start"
-            disabled={editFlag}
+            disabled={!isLoggedIn || editFlag}
             checked={task.done}
             tabIndex={-1}
             disableRipple
