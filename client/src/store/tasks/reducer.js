@@ -3,7 +3,8 @@ import {
   TASKS_ADD_SUCCESS,
   TASKS_LOADED,
   TASKS_RESET_VALIDATION,
-  TASKS_UPDATED,
+  TASKS_UPDATED_SUCCESS,
+  TASKS_UPDATED_FAILURE,
   TASKS_CLOSE_VALIDATION_RESULT,
   TASKS_CHANGE_PAGE,
   TASKS_SHOW_EDIT,
@@ -59,12 +60,16 @@ export default function tasksReducer(state = initialState, action) {
       };
     }
 
-    case TASKS_UPDATED: {
+    case TASKS_UPDATED_SUCCESS: {
       const newTask = action.payload;
       return {
         ...state,
         tasks: state.tasks.map((task) => (task.id === newTask.id ? { ...task, ...newTask } : task)),
       };
+    }
+
+    case TASKS_UPDATED_FAILURE: {
+      return { ...state, showAddResultFlag: true, errors: [''] };
     }
 
     case TASKS_CHANGE_PAGE: {

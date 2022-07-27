@@ -41,6 +41,11 @@ taskRouter
 
 taskRouter.put('/:id', async (req, res, next) => {
   try {
+    console.log('req.session.userId', req.session.userId);
+    if (!req.session.userId) {
+      return res.status(401).end();
+    }
+
     const task = await Task.findByPk(Number(req.params.id));
 
     if (!task) {

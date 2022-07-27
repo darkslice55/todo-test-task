@@ -1,9 +1,11 @@
+import { logoutAdmin } from '../auth/actionsCreators';
 import {
   TASKS_ADD_FAILURE,
   TASKS_ADD_SUCCESS,
   TASKS_LOADED,
   TASKS_RESET_VALIDATION,
-  TASKS_UPDATED,
+  TASKS_UPDATED_SUCCESS,
+  TASKS_UPDATED_FAILURE,
   TASKS_CLOSE_VALIDATION_RESULT,
   TASKS_CHANGE_PAGE,
   TASKS_SHOW_EDIT,
@@ -69,20 +71,28 @@ export function updateTask(newTask) {
     delete newTask.description;
   }
   return async (dispatch) => {
-    await fetch(`/api/tasks/${newTask.id}`, {
+    const data = await fetch(`/api/tasks/${newTask.id}`, {
       method: 'PUT',
       body: JSON.stringify(newTask),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-
-    dispatch(taskUpdated(newTask));
+    if (data.status >= 400) {
+      dispatch(taskUpdatedFailure());
+      dispatch(logoutAdmin());
+    } else {
+      dispatch(taskUpdatedSuccess(newTask));
+    }
   };
 }
 
-export function taskUpdated(newTask) {
-  return { type: TASKS_UPDATED, payload: newTask };
+export function taskUpdatedSuccess(newTask) {
+  return { type: TASKS_UPDATED_SUCCESS, payload: newTask };
+}
+
+export function taskUpdatedFailure() {
+  return { type: TASKS_UPDATED_FAILURE };
 }
 
 export function taskShowEdit(id) {
