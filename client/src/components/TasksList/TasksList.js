@@ -29,7 +29,9 @@ export default function TasksList() {
   return (
     <>
       {!tasks.length ? (
-        <p>Задач пока нет</p>
+        <Paper className={styles.paperBlock}>
+          <p className={styles.emptyText}>Задач пока нет</p>
+        </Paper>
       ) : (
         <Paper className={styles.paperBlock}>
           <FormControl className={styles.sortForm} size="small">
